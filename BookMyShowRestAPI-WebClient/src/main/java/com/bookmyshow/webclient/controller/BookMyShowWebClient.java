@@ -30,7 +30,7 @@ public class BookMyShowWebClient {
 
 	@RequestMapping(value = "/makeABooking", method = RequestMethod.POST)
 	public Mono<String> makeABooking(@RequestBody BookRequest bookRequest) {
-		return webClient.post().uri("/bookingShow").syncBody(bookRequest).retrieve().bodyToMono(String.class);
+		return webClient.post().uri("/bookingShow").bodyValue(bookRequest).retrieve().bodyToMono(String.class);
 	}
 
 	@RequestMapping(value = "/getAllMyBookings", method = RequestMethod.GET)
