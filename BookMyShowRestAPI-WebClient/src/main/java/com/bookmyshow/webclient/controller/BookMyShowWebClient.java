@@ -24,13 +24,13 @@ public class BookMyShowWebClient {
 
 	@PostConstruct
 	public void init() {
-		WebClient.builder().baseUrl("http://localhost:8080/bookmyshow/service")
+		webClient = WebClient.builder().baseUrl("http://localhost:8080/bookmyshow/service")
 				.defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE).build();
 	}
 
 	@RequestMapping(value = "/makeABooking", method = RequestMethod.POST)
-	public Mono<String> makeABooking(@RequestBody BookRequest request) {
-		return webClient.post().uri("/bookingShow").bodyValue(request).retrieve().bodyToMono(String.class);
+	public Mono<String> makeABooking(@RequestBody BookRequest bookRequest) {
+		return webClient.post().uri("/bookingShow").syncBody(bookRequest).retrieve().bodyToMono(String.class);
 	}
 
 	@RequestMapping(value = "/getAllMyBookings", method = RequestMethod.GET)
